@@ -1,7 +1,11 @@
 catkin:
-  - kinetic:
-    cpp_version: 11
-    cmake_version: 3.1.3
-  - melodic:
-    cpp_version: 14
-    cmake_version: 3.1.3
+  kinetic:
+    cpp_version: '11'
+    cmake_version: '3.1.3'
+    extern: false
+    install: false
+    license: 'BSD'
+    manifest_format: '2'
+  melodic:
+    cpp_version: '14'
+    cmake_version: '3.1.3'

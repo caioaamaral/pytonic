@@ -6,7 +6,11 @@ from pytonic.model.includes.project_include import ProjectInclude
 class CatkinPackage:
     def __init__(self, ros_distro=None):
         self.pkg_type = 'catkin'
+        self.manifest_format = str()
         self.project_name = str()
+        self.description = str()
+        self.license = str()
+        self.version = '0.0.1'
         self.cmake_version = str()
         self.cpp_version = str()
         self.is_extern = bool()
@@ -48,4 +52,6 @@ class CatkinPackage:
         self.cpp_version = config['cpp_version']
         self.is_extern = config['extern']
         self.is_install = config['install']
+        self.license = config['license']
+        self.manifest_format = config['manifest_format']
         
