@@ -14,6 +14,12 @@ setup(
     entry_points={
         'console_scripts' : [
             'pytonic=pytonic.console:main'
+<<<<<<< Updated upstream
+=======
+        ],
+        'pytonic.verbs':[
+            'create = pytonic.verbs.pytonic_create'
+>>>>>>> Stashed changes
         ]
     }
 )
