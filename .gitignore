@@ -4,4 +4,5 @@
 pyvenv.cfg
 bin/
 build/
+dist/
 lib/
