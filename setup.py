@@ -5,6 +5,7 @@ setup(
     name='pytonic',
     version='0.0.1.dev1',
     python_requires='>=3.5',
+    install_requires=['PyYaml'],
     packages=find_packages(include=['pytonic']),
     author='Caio Amaral',
     author_email='caioaamaral@gmail.com',
@@ -14,12 +15,9 @@ setup(
     entry_points={
         'console_scripts' : [
             'pytonic=pytonic.console:main'
-<<<<<<< Updated upstream
-=======
         ],
         'pytonic.verbs':[
             'create = pytonic.verbs.pytonic_create'
->>>>>>> Stashed changes
         ]
     }
 )
