@@ -7,13 +7,13 @@ from pytonic.model.package.catkin_package import CatkinPackage
 def create(pkg : CatkinPackage):
     with open('CMakeLists.txt', 'w+') as file:
         # cmake version
-        file.write(cmake_minimum_required(pkg.cmake_version))
+        file.write(cmake_minimum_required(pkg.header.get('cmake_version')))
 
         # project name
-        file.write(project(pkg.project_name))
+        file.write(project(pkg.header.get('project_name')))
 
         # cpp version
-        file.write(cmake_set('CMAKE_CXX_STANDARD', pkg.cpp_version))
+        file.write(cmake_set('CMAKE_CXX_STANDARD', pkg.header.get('cpp_version')))
 
         # find catkin packages
         file.write(find_package('catkin', True, pkg.catkin_deps.get('build_depend')))
@@ -36,7 +36,7 @@ def create(pkg : CatkinPackage):
             file.write(target_link_libraries(name, target_libs))
 
         # install
-        if not pkg.is_install:
+        if not pkg.header.get('is_install'):
             # install libs
             for lib in pkg.libs:
                 lib = lib[0]

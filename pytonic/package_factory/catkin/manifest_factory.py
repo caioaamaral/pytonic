@@ -6,13 +6,13 @@ from pytonic.model.package.catkin_package import CatkinPackage
 def create(package : CatkinPackage):
     with open('package.xml', 'w+') as manifest:
         manifest.write(xmlVersion('1.0'))
-        manifest.write(package_format(package.manifest_format))
-        manifest.write(name(package.project_name))
-        manifest.write(description(package.description))
+        manifest.write(package_format(package.header.get('manifest_format')))
+        manifest.write(name(package.header.get('project_name')))
+        manifest.write(description(package.header.get('description')))
         manifest.write(maintainer('', ''))
-        manifest.write(pkg_license(package.license))
-        manifest.write(version(package.version))
-        manifest.write(buildtool_depend(package.pkg_type))
+        manifest.write(pkg_license(package.header.get('license')))
+        manifest.write(version(package.header.get('version')))
+        manifest.write(buildtool_depend(package.header.get('pkg_type')))
 
         for catkin_pkg in package.catkin_deps['build_depend']:
             manifest.write(build_depend(catkin_pkg))

@@ -3,18 +3,42 @@ from configparser import ConfigParser
 import yaml
 from pytonic.model.includes.project_include import ProjectInclude
 
+from collections import OrderedDict
+
+class Header:
+    def __init__(self, pkg_type=[], manifest_format=[], version=[],
+                 cpp_version=[], cmake_version=[], project_name=[],
+                 description='', pkg_license=[], is_extern=[], is_install=[]):
+        self.container = OrderedDict(
+            [('project_name' , project_name),
+            ('pkg_type' , pkg_type),
+            ('manifest_format' , manifest_format),
+            ('version' , version),
+            ('cpp_version' , cpp_version),
+            ('cmake_version' , cmake_version),
+            ('description' , description),
+            ('license' , pkg_license),
+            ('is_extern' , is_extern),
+            ('is_install' , is_install)
+        ])
+    
+    def get(self, attribute):
+        return self.container[attribute]
+    
+    def replace(self, attribute, value):
+        self.container[attribute] = value
+
+    def __repr__(self):
+        representation = str()
+        for key, value in self.container.items():
+            representation += '\n{}: {}'.format(key, value)
+        return representation
+
+
+head = Header(pkg_type='catkin', version='0.0.1')
 class CatkinPackage:
     def __init__(self, ros_distro=None):
-        self.pkg_type = 'catkin'
-        self.manifest_format = str()
-        self.project_name = str()
-        self.description = str()
-        self.license = str()
-        self.version = '0.0.1'
-        self.cmake_version = str()
-        self.cpp_version = str()
-        self.is_extern = bool()
-        self.is_install = bool()
+        self.header = Header(pkg_type='catkin', version='0.0.1')
         self.include_directories = ProjectInclude()
         self.libs = []
         self.execs = []
@@ -45,13 +69,13 @@ class CatkinPackage:
 
     def readAsPyYAML(self, path):
         distro = self.ros_distro
-        pkg_type = self.pkg_type
+        pkg_type = self.header.get('pkg_type')
         config = yaml.load(open(path, 'r'), Loader=yaml.FullLoader)
-        config = config['catkin'][distro]
-        self.cmake_version = config['cmake_version']
-        self.cpp_version = config['cpp_version']
-        self.is_extern = config['extern']
-        self.is_install = config['install']
-        self.license = config['license']
-        self.manifest_format = config['manifest_format']
+        config = config[pkg_type][distro]
+        self.header.replace('cmake_version', config['cmake_version'])
+        self.header.replace('cpp_version', config['cpp_version'])
+        self.header.replace('is_extern', config['extern'])
+        self.header.replace('is_install', config['install'])
+        self.header.replace('license', config['license'])
+        self.header.replace('manifest_format', config['manifest_format'])
         

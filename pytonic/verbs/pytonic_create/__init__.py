@@ -11,7 +11,7 @@ def execute(args):
 
 def loadTemplatePkg(pkg_name):
     pkg = catkin.getTemplatePkg()
-    pkg.project_name = pkg_name
+    pkg.header.replace('project_name', pkg_name)
     return pkg
 
 def create(pkg):

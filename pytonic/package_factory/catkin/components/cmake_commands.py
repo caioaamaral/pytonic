@@ -28,7 +28,7 @@ def catkin_package(pkg):
     '{CATKIN_DEPENDS}'
     '{DEPENDS}'
     ')').format(
-        INCLUDE_DIRS='\n  ' + CATKIN_PKG_PARAM.INCLUDE_DIRS.name + str(pkg.include_directories) + '\n' if pkg.is_extern and not pkg.include_directories.empty() else '',
+        INCLUDE_DIRS='\n  ' + CATKIN_PKG_PARAM.INCLUDE_DIRS.name + str(pkg.include_directories) + '\n' if pkg.header.get('is_extern') and not pkg.include_directories.empty() else '',
         CATKIN_DEPENDS='\n  ' + CATKIN_PKG_PARAM.CATKIN_DEPENDS.name + str(pkg.catkin_deps['build_export_depend']) + '\n' if bool(pkg.catkin_deps['build_export_depend']) else '',
         DEPENDS='\n  ' + CATKIN_PKG_PARAM.DEPENDS.name + str(pkg.system_deps['build_export_depend']) + '\n' if bool(pkg.system_deps['build_export_depend']) else ''
     )
