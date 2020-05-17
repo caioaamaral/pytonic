@@ -1,5 +1,4 @@
 import subprocess
-from configparser import ConfigParser
 import yaml
 from pytonic.model.includes.project_include import ProjectInclude
 
@@ -63,9 +62,6 @@ class CatkinPackage:
             self.ros_distro = rosversion_cmd.stdout.rstrip()
         else:
             self.ros_distro = ros_distro
-    
-    def readAsConfigParser(self, path):
-        config = ConfigParser().read(path)
 
     def readAsPyYAML(self, path):
         distro = self.ros_distro
