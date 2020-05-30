@@ -1,7 +1,7 @@
 from pytonic.misc import methdispatch
 
 class Library:
-    def __init__(self, name: str, sources: set={''}, linked_libs: set={''}):
+    def __init__(self, name: str, sources: set=set(), linked_libs: set=set()):
         self.__name = name
         self.__sources = sources
         self.__linked_libs = linked_libs
@@ -13,12 +13,10 @@ class Library:
 
     @addSource.register(str)
     def _(self, source : str):
-        self.__sources.discard('')
         self.__sources.add(source)
 
     @addSource.register(set)
     def _(self, source : set):
-        self.__sources.discard('')
         for element in source:
             self.__sources.add(element)
 
@@ -43,9 +41,12 @@ class Library:
     
     @linkToLib.register(str)
     def _(self, libs : str):
-        self.__linked_libs.discard('')
         self.__linked_libs.add(libs)
     
+    @linkToLib.register(set)
+    def _(self, libs : set):
+        for lib in libs:
+            self.__linked_libs.add(lib)
 
     @methdispatch
     def unlinkToLib(self, lib):
@@ -61,11 +62,6 @@ class Library:
             self.__linked_libs.remove(lib)
 
 
-    @linkToLib.register(set)
-    def _(self, libs : set):
-        self.__linked_libs.discard('')
-        for lib in libs:
-            self.__linked_libs.add(lib)
     
     def getName(self):
         return self.__name
