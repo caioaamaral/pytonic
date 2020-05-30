@@ -22,21 +22,24 @@ def create(pkg : CatkinPackage):
 
         CATKIN_LIBRARIES = '${catkin_LIBRARIES}'
         for lib in pkg.libs:
-            lib_name = lib[0]
-            lib_sources = lib[1]
+            lib_name = lib.getName()
+            lib_sources = lib.getSources()
+            lib_linked_libs = lib.getLinkedLibs()
             file.write(add_library(lib_name, lib_sources))
-            file.write(target_link_libraries(lib_name, CATKIN_LIBRARIES))
+            if lib_linked_libs:
+                file.write(target_link_libraries(lib_name, lib_linked_libs))
 
         # add_executables
         for target in pkg.execs:
-            name = target[0]
-            sources = target[1]
-            target_libs = " ".join(target[2])
+            name = target.getName()
+            sources = target.getSources()
+            source_linked_libs = target.getLinkedLibs()
             file.write(add_executable(name, sources))
-            file.write(target_link_libraries(name, target_libs))
+            if source_linked_libs:
+                file.write(target_link_libraries(name, source_linked_libs))
 
         # install
-        if not pkg.header.get('is_install'):
+        if pkg.header.get('is_install'):
             # install libs
             for lib in pkg.libs:
                 lib = lib[0]

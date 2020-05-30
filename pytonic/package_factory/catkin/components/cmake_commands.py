@@ -27,7 +27,7 @@ def catkin_package(pkg):
     '{INCLUDE_DIRS}'
     '{CATKIN_DEPENDS}'
     '{DEPENDS}'
-    ')').format(
+    ')\n').format(
         INCLUDE_DIRS='\n  ' + CATKIN_PKG_PARAM.INCLUDE_DIRS.name + str(pkg.include_directories) + '\n' if pkg.header.get('is_extern') and not pkg.include_directories.empty() else '',
         CATKIN_DEPENDS='\n  ' + CATKIN_PKG_PARAM.CATKIN_DEPENDS.name + str(pkg.catkin_deps['build_export_depend']) + '\n' if bool(pkg.catkin_deps['build_export_depend']) else '',
         DEPENDS='\n  ' + CATKIN_PKG_PARAM.DEPENDS.name + str(pkg.system_deps['build_export_depend']) + '\n' if bool(pkg.system_deps['build_export_depend']) else ''
@@ -42,7 +42,7 @@ def add_executable(executable, sources):
     return '\nadd_executable({NAME}\n  {SOURCE}\n)'.format(NAME=executable, SOURCE="\n  ".join(sources))
 
 def target_link_libraries(target, libraries):
-    return '\rtarget_link_libraries({} {})\n'.format(target, libraries)
+    return '\ntarget_link_libraries({} {})\n'.format(target, ' '.join(libraries))
 
 def install(signature, target):
     if signature is INSTALL_SIGNATURE.TARGETS:

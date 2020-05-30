@@ -1,6 +1,9 @@
 import subprocess
 import yaml
 from pytonic.model.includes.project_include import ProjectInclude
+from pytonic.model.library.library import Library
+from pytonic.model.executable.executable import Executable
+from typing import List
 
 from collections import OrderedDict
 
@@ -39,8 +42,8 @@ class CatkinPackage:
     def __init__(self, ros_distro=None):
         self.header = Header(pkg_type='catkin', version='0.0.1')
         self.include_directories = ProjectInclude()
-        self.libs = []
-        self.execs = []
+        self.libs = List[Library]
+        self.execs = List[Executable]
         self.catkin_deps = {
             "build_depend"          : [],
             "exec_depend"           : [],
