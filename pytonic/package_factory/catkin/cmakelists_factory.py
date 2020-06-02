@@ -20,7 +20,6 @@ def create(pkg : CatkinPackage):
 
         file.write(catkin_package(pkg))
 
-        CATKIN_LIBRARIES = '${catkin_LIBRARIES}'
         for lib in pkg.libs:
             lib_name = lib.getName()
             lib_sources = lib.getSources()
