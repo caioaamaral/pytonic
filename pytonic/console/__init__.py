@@ -2,6 +2,8 @@ import argparse
 import pkg_resources
 import sys
 
+from pytonic.verbs import pytonic_create, pytonic_workspace
+
 version = pkg_resources.get_distribution('pytonic').version
 
 def getVerbModule(verb):
@@ -19,10 +21,9 @@ def generateOptionalArguments(parser):
     add('--version', action='store_true', help='prints the pytonic current version')
 
 def generatePytonicVerbs(parser):
-    verb_parser = parser.add_subparsers(metavar='verb', dest='verb', help='a helper')
-
-    make_parser = verb_parser.add_parser('create', help='Makes a catkin package')
-    make_parser.add_argument('PKG', type=str, help='package name')
+    verb_parser = parser.add_subparsers(metavar='verb', dest='verb')
+    pytonic_create.add_parser(verb_parser)
+    pytonic_workspace.add_parser(verb_parser)
 
 def main():
     parser = argparse.ArgumentParser()
