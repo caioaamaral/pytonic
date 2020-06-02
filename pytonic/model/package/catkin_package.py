@@ -43,7 +43,9 @@ class CatkinPackage:
         self.header = Header(pkg_type='catkin', version='0.0.1')
         self.include_directories = ProjectInclude()
         self.libs = List[Library]
+        self.libs = []
         self.execs = List[Executable]
+        self.execs = []
         self.catkin_deps = {
             "build_depend"          : [],
             "exec_depend"           : [],
