@@ -3,9 +3,9 @@ from setuptools import find_packages
 
 setup(
     name='pytonic',
-    version='0.0.1.dev1',
+    version='0.1a1',
     python_requires='>=3.5',
-    install_requires=['PyYaml'],
+    install_requires=['PyYaml', 'singledispatch', 'update_wrapper'],
     packages=find_packages(include=['pytonic']),
     author='Caio Amaral',
     author_email='caioaamaral@gmail.com',
@@ -17,7 +17,8 @@ setup(
             'pytonic=pytonic.console:main'
         ],
         'pytonic.verbs':[
-            'create = pytonic.verbs.pytonic_create'
+            'create = pytonic.verbs.pytonic_create',
+            'workspace = pytonic.verbs.pytonic_workspace'
         ]
     }
 )
