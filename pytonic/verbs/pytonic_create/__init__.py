@@ -17,3 +17,7 @@ def loadTemplatePkg(pkg_name):
 def create(pkg):
     catkin.manifest_factory.create(pkg)
     catkin.cmakelists_factory.create(pkg)
+
+def add_parser(verb_parser):
+    create_parser = verb_parser.add_parser('create', help='Makes a catkin package')
+    create_parser.add_argument('PKG', type=str, help='package name')
